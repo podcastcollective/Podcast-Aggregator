@@ -1,0 +1,66 @@
+{
+  "version": 2,
+  "name": "podcast-aggregator-api",
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/search/podcasts",
+      "dest": "/api/search/podcasts.js"
+    },
+    {
+      "src": "/api/podcasts/([^/]+)",
+      "dest": "/api/podcasts/[id].js?id=$1"
+    },
+    {
+      "src": "/api/episodes",
+      "dest": "/api/episodes.js"
+    },
+    {
+      "src": "/api/episodes/([^/]+)",
+      "dest": "/api/episodes/[id].js?id=$1"
+    },
+    {
+      "src": "/api/search/episodes",
+      "dest": "/api/search/episodes.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        }
+      ]
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
+```
+
+---
+
+### File 3: `.gitignore`
+Create `.gitignore`:
+```
+node_modules/
+.env
+.env.local
+.vercel
+.DS_Store
